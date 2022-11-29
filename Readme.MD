@@ -81,3 +81,11 @@ middlware functions can:
 
 ### More on the next function
 a function within the Express router, when invoked, executes the next middleware.
+
+### Routes 
+in express routes are attached to the main express app. but can also be created as seperate routers.
+you can use all the basic http methods.
+
+`app.get('/', middleware)`
+
+you would have a leading url, then an express RequestHandler middleware.
