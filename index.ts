@@ -1,6 +1,7 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import { AuthMiddleware, BasicMiddleware, ErrorMiddleware, HealthMiddleware } from './middleware';
 import { MainRouter } from './routes';
+import { TaskRouter } from './tasks/router';
 
 const webServer: Express = express();
 
@@ -13,6 +14,8 @@ webServer.use('/health', HealthMiddleware);
 webServer.use(AuthMiddleware);
 
 webServer.use('/main', MainRouter);
+
+webServer.use('/tasks', TaskRouter);
 
 webServer.get('/', (req: Request, res: Response, next: NextFunction) => {
 	res.status(200).send({
