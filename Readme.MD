@@ -66,3 +66,18 @@ you can use middleware to help you handle url parameters and queries, as well as
 you can use a router to route and handle your requests.
 
 you must listen to a port for the webserver to work.
+
+### Middlware functions
+functions that has:
+1. access to the request (express's representation of the http request)
+2. access to the response object (express's representation of the http response)
+3. has a next function
+
+middlware functions can:
+* execute any code
+* make changes to the request/response objects.
+* end the request/response cycle.
+* call the net middleware in the stack.
+
+### More on the next function
+a function within the Express router, when invoked, executes the next middleware.

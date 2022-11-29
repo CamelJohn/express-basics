@@ -1,6 +1,0 @@
-### GET root
-
-GET http://localhost:3000
-
-### Get error
-GET http://localhost:3000/error

@@ -1,0 +1,11 @@
+@baseURL=http://localhost:3000
+
+### GET root
+
+GET {{baseURL}}
+
+### Get error
+GET {{baseURL}}/error
+
+### Health-Check
+GET {{baseURL}}/health

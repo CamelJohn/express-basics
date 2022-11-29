@@ -1,13 +1,13 @@
-import express, { Express, json, NextFunction, Request, Response, urlencoded } from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
+import express, { Express, NextFunction, Request, Response } from 'express';
+import { BasicMiddleware, ErrorMiddleware, HealthMiddleware } from './middleware';
 
 const webServer: Express = express();
 
 const PORT: number = 3000;
 
-webServer.use(json(), urlencoded({ extended: true }), cors(), helmet(), morgan('dev'));
+webServer.use(BasicMiddleware);
+
+webServer.use('/health', HealthMiddleware);
 
 webServer.get('/', (req: Request, res: Response, next: NextFunction) => {
 	res.status(200).send({
@@ -24,11 +24,7 @@ webServer.get('/error', (req: Request, res: Response, next: NextFunction) => {
 	}
 })
 
-webServer.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-	res.status(500).send({
-		message: error.message
-	})
-})
+webServer.use(ErrorMiddleware)
 
 webServer.listen(PORT, () =>
 	console.log('Webserver Listening on port:', PORT, `at http://localhost:${PORT}`));
