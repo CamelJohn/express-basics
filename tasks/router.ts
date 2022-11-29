@@ -1,9 +1,10 @@
 import { Router } from "express";
+import { TaskController } from './controller';
 
 export const TaskRouter: Router = Router();
 
-TaskRouter.get('');
-TaskRouter.post('');
-TaskRouter.get('/:id');
-TaskRouter.put('/:id');
-TaskRouter.delete('/:id');
+TaskRouter.get('', TaskController.List);
+TaskRouter.post('', TaskController.Create);
+TaskRouter.get('/:id', TaskController.GetOne);
+TaskRouter.put('/:id', TaskController.Update);
+TaskRouter.delete('/:id', TaskController.Delete);
