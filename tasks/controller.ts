@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { HttpResponseStatus } from '../http/response';
 import { TaskService } from './service';
 import { CreateTaskDto, EntityUrlParam, TaskResponse, UpdateTaskDto, ListTaskResponse } from './types';
 
@@ -7,7 +8,7 @@ export class TaskController {
 		try {
 			const task = TaskService.GetOne(req.params.id);
 			if (task) {
-				res.status(200).send({ task });
+				res.status(HttpResponseStatus.OK).send({ task });
 			}
 		} catch (error) {
 			next(error);
@@ -17,7 +18,7 @@ export class TaskController {
 	static List(req: Request, res: Response<ListTaskResponse>, next: NextFunction) {
 		try {
 			const tasks = TaskService.List();
-			res.status(200).send({ ...tasks })
+			res.status(HttpResponseStatus.OK).send({ ...tasks })
 		} catch (error) {
 			next(error);
 		}
@@ -27,7 +28,7 @@ export class TaskController {
 		try {
 			const task = TaskService.Update(req.params.id, req.body.task); 
 
-			res.status(201).send({ task })
+			res.status(HttpResponseStatus.UPDATED).send({ task })
 		} catch (error) {
 			next(error);
 		}
@@ -37,7 +38,7 @@ export class TaskController {
 		try {
 			const result = TaskService.Delete(req.params.id);
 
-			res.status(204).send({ message: result });
+			res.status(HttpResponseStatus.DELETED).send({ message: result });
 		} catch (error) {
 			next(error);
 		}
@@ -47,7 +48,7 @@ export class TaskController {
 		try {
 			const task = TaskService.Create(req.body.task);
 
-			res.status(201).send({
+			res.status(HttpResponseStatus.CREATED).send({
 				task,
 			});
 		} catch (error) {

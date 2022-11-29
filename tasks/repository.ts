@@ -1,4 +1,5 @@
 import { CreateTaskDto, Task, UpdateTaskDto } from './types';
+import { Conflict, NotFound } from '../http';
 
 export class TaskRepository {
 
@@ -7,7 +8,7 @@ export class TaskRepository {
 	static GetOne(id: number) {
 		try {
 			if (!this.InMemoryDatabase.has(id)) {
-				throw new Error('no entity with provided id exists.');
+				throw new NotFound()
 			}
 
 			if (this.InMemoryDatabase.get(id)) {
@@ -35,7 +36,7 @@ export class TaskRepository {
 	static Update(entityId: number, taskDto: UpdateTaskDto['task']) {
 		try {
 			if (!this.InMemoryDatabase.has(entityId)) {
-				throw new Error('no entity with provided id exists.');
+				throw new NotFound();
 			}
 
 			const oldTask = this.InMemoryDatabase.get(entityId)!;
@@ -54,7 +55,7 @@ export class TaskRepository {
 	static Delete(entityId: number) {
 		try {
 			if (!this.InMemoryDatabase.has(entityId)) {
-				throw new Error('no entity with provided id exists.');
+				throw new NotFound();
 			}
 
 			this.InMemoryDatabase.delete(entityId);
@@ -68,6 +69,11 @@ export class TaskRepository {
 	
 	static Create(taskDto: CreateTaskDto['task']) {
 		try {
+			this.InMemoryDatabase.forEach(k => {
+				if (k.name === taskDto.name) {
+					throw new Conflict();
+				}
+			})
 			const id = this.InMemoryDatabase.size + 1;
 			const task = { id, ...taskDto };
 

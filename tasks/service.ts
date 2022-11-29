@@ -1,5 +1,6 @@
 import { TaskRepository } from "./repository";
 import { CreateTaskDto, UpdateTaskDto } from "./types";
+import { NotFound, Unprocessable } from '../http';
 
 export class TaskService {
 	static GetOne(entityId: string) {
@@ -33,11 +34,11 @@ export class TaskService {
 	static Delete(entityId: string) {
 		try {
 			if (entityId.trim().length === 0) {
-				throw new Error('no id was provied');
+				throw new Unprocessable();
 			}
 
 			if (Number(entityId) < 0) {
-				throw new Error('no entity with such id can exist');
+				throw new NotFound();
 			}
 
 			const id = parseInt(entityId, 10);
