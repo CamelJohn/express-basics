@@ -1,0 +1,38 @@
+@baseURL=http://localhost:3000/tasks
+@token=tell_me_lies_tell_me_sweet_little_lies
+
+
+### List all tasks
+GET {{baseURL}}
+Authorization: Bearer {{token}}
+
+### Get task by id
+GET {{baseURL}}/1
+Authorization: Bearer {{token}}
+
+### Create Task
+POST {{baseURL}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"task": {
+		"name": "test task",
+		"owner": "liar_liar_pants_on_fire"
+	}
+}
+
+### Update Task
+PUT {{baseURL}}/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"task": {
+		"name": "test task # 2"
+	}
+}
+
+### Delete Task
+DELETE {{baseURL}}/2
+Authorization: Bearer {{token}}
