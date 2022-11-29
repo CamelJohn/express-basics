@@ -1,11 +1,57 @@
 @baseURL=http://localhost:3000
+@token=tell_me_lies_tell_me_sweet_little_lies
 
 ### GET root
 
 GET {{baseURL}}
+Authorization: Bearer {{token}}
 
 ### Get error
 GET {{baseURL}}/error
+Authorization: Bearer {{token}}
 
 ### Health-Check
 GET {{baseURL}}/health
+
+### Main Router GET
+GET {{baseURL}}/main
+Authorization: Bearer {{token}}
+
+### Main Router POST
+POST {{baseURL}}/main
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+	"user": {
+		"email": "lies@gmail.com",
+		"password": "hashed_lies"
+	}
+}
+
+### Main Router PUT
+PUT {{baseURL}}/main/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+	"user": {
+		"email": "lies_more_lies@gmail.com"
+	}
+}
+
+### Main Router PATCH
+PATCH {{baseURL}}/main/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+	"user": {
+		"email": "lie_2_me@gmail.com",
+		"password": "come_fly_with_me"
+	}
+}
+
+### Main Router DELETE
+DELETE {{baseURL}}/main/1
+Authorization: Bearer {{token}}

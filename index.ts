@@ -1,5 +1,6 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
-import { BasicMiddleware, ErrorMiddleware, HealthMiddleware } from './middleware';
+import { AuthMiddleware, BasicMiddleware, ErrorMiddleware, HealthMiddleware } from './middleware';
+import { MainRouter } from './routes';
 
 const webServer: Express = express();
 
@@ -8,6 +9,10 @@ const PORT: number = 3000;
 webServer.use(BasicMiddleware);
 
 webServer.use('/health', HealthMiddleware);
+
+webServer.use(AuthMiddleware);
+
+webServer.use('/main', MainRouter);
 
 webServer.get('/', (req: Request, res: Response, next: NextFunction) => {
 	res.status(200).send({
