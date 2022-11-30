@@ -1,11 +1,13 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
+import { getPortFromConfig } from './env';
+import { HttpResponseStatus } from './http';
 import { AuthMiddleware, BasicMiddleware, ErrorMiddleware, HealthMiddleware } from './middleware';
 import { MainRouter } from './routes';
 import { TaskRouter } from './tasks/router';
 
 const webServer: Express = express();
 
-const PORT: number = 3000;
+const PORT: number = getPortFromConfig();
 
 webServer.use(BasicMiddleware);
 
@@ -18,7 +20,7 @@ webServer.use('/main', MainRouter);
 webServer.use('/tasks', TaskRouter);
 
 webServer.get('/', (req: Request, res: Response, next: NextFunction) => {
-	res.status(200).send({
+	res.status(HttpResponseStatus.OK).send({
 		message: 'hello from our sever',
 		route: req.protocol.concat('://', req.hostname, ':3000', req.url)
 	})
