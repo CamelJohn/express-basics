@@ -1,13 +1,17 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
-import { getPortFromConfig } from './env';
 import { HttpResponseStatus } from './http';
 import { AuthMiddleware, BasicMiddleware, ErrorMiddleware, HealthMiddleware } from './middleware';
 import { MainRouter } from './routes';
+import { EnvSrevice } from './services/env';
 import { TaskRouter } from './tasks/router';
 
 const webServer: Express = express();
 
-const PORT: number = getPortFromConfig();
+const PORT: number = EnvSrevice.get({
+	variable: 'ENV_PORT',
+	defaultValue: 3000,
+	mapper: (arg: string) => parseInt(arg, 10),
+});
 
 webServer.use(BasicMiddleware);
 
@@ -22,9 +26,9 @@ webServer.use('/tasks', TaskRouter);
 webServer.get('/', (req: Request, res: Response, next: NextFunction) => {
 	res.status(HttpResponseStatus.OK).send({
 		message: 'hello from our sever',
-		route: req.protocol.concat('://', req.hostname, ':3000', req.url)
-	})
-})
+		route: req.protocol.concat('://', req.hostname, ':3000', req.url),
+	});
+});
 
 webServer.get('/error', (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -32,9 +36,8 @@ webServer.get('/error', (req: Request, res: Response, next: NextFunction) => {
 	} catch (error) {
 		next(error);
 	}
-})
+});
 
-webServer.use(ErrorMiddleware)
+webServer.use(ErrorMiddleware);
 
-webServer.listen(PORT, () =>
-	console.log('Webserver Listening on port:', PORT, `at http://localhost:${PORT}`));
+webServer.listen(PORT, () => console.log('Webserver Listening on port:', PORT, `at http://localhost:${PORT}`));
