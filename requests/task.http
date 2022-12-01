@@ -7,7 +7,7 @@ GET {{baseURL}}
 Authorization: Bearer {{token}}
 
 ### Get task by id
-GET {{baseURL}}/1
+GET {{baseURL}}/3
 Authorization: Bearer {{token}}
 
 ### Create Task
@@ -18,12 +18,12 @@ Content-Type: application/json
 {
 	"task": {
 		"name": "test task",
-		"owner": "liar_liar_pants_on_fire"
+		"description": "liar_liar_pants_on_fire"
 	}
 }
 
 ### Update Task
-PUT {{baseURL}}/2
+PUT {{baseURL}}/20
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -34,5 +34,5 @@ Content-Type: application/json
 }
 
 ### Delete Task
-DELETE {{baseURL}}/2
+DELETE {{baseURL}}/16
 Authorization: Bearer {{token}}

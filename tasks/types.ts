@@ -1,20 +1,20 @@
 export interface Task {
 	id: number;
 	name: string;
-	owner: string;
+	description: string;
 }
 
 export interface CreateTaskDto {
 	task: {
 		name: string;
-		owner: string;
+		description: string;
 	};
 }
 
 export interface UpdateTaskDto {
 	task: {
 		name?: string;
-		owner?: string;
+		description?: string;
 	};
 }
 

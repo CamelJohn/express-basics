@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { DB } from "../instance";
 
-export const Task = DB.define('task', {
+export const TaskSchema = DB.define('task', {
 	id: {
 		primaryKey: true,
 		autoIncrement: true,
@@ -15,6 +15,10 @@ export const Task = DB.define('task', {
 	description: {
 		allowNull: false,
 		type: DataTypes.STRING
+	},
+	userId: {
+		allowNull: true,
+		type: DataTypes.INTEGER
 	}
 }, {
 	timestamps: true

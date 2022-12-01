@@ -21,17 +21,20 @@ export class TaskService {
 		}
 	}
 	
-	static Update(entityId: string, taskDto: UpdateTaskDto['task']) {
+	static async Update(entityId: string, taskDto: UpdateTaskDto['task']) {
 		try {
 			const id = parseInt(entityId, 10);
 
-			return TaskRepository.Update(id, taskDto);
+			const result = await TaskRepository.Update(id, taskDto);
+
+			return `Task was ${result ? 'updated' : 'not updated'}.`;
+
 		} catch (error) {
 			throw error;
 		}
 	}
 	
-	static Delete(entityId: string) {
+	static async Delete(entityId: string) {
 		try {
 			if (entityId.trim().length === 0) {
 				throw new Unprocessable();
@@ -43,9 +46,9 @@ export class TaskService {
 
 			const id = parseInt(entityId, 10);
 
-			const result = TaskRepository.Delete(id);
+			const result = await TaskRepository.Delete(id);
 
-			return `Task was ${result ? '' : 'not'} deleted.`;
+			return `Task was ${result ? 'deleted' : 'not deleted'}.`;
 		} catch (error) {
 			throw error;
 		}

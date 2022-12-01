@@ -1,11 +1,11 @@
-import { Task, User } from './models';
+import { TaskSchema, UserSchema } from './models';
 
 export function DefineRelations() {
 	try {
-		Task.belongsTo(User);
+		TaskSchema.belongsTo(UserSchema);
 
-		Task.sync();
-		User.sync();
+		TaskSchema.sync();
+		UserSchema.sync();
 	} catch (error) {
 		console.log(error);
 		throw error;

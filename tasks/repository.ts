@@ -1,85 +1,63 @@
 import { CreateTaskDto, Task, UpdateTaskDto } from './types';
 import { Conflict, NotFound } from '../http';
+import { TaskSchema } from '../database'
+import { Model } from 'sequelize';
 
 export class TaskRepository {
-
-	private static InMemoryDatabase = new Map<number, Task>([]);
-
-	static GetOne(id: number) {
+	static async GetOne(id: number) {
 		try {
-			if (!this.InMemoryDatabase.has(id)) {
-				throw new NotFound()
+			const raw = await TaskSchema.findOne({ where: { id } });
+
+			if (!raw) {
+				throw new NotFound();
 			}
 
-			if (this.InMemoryDatabase.get(id)) {
-				return this.InMemoryDatabase.get(id);
-			} 
+			return raw.toJSON<Task>();
 		} catch (error) {
 			throw error;
 		}
 	}
-	static List() {
+
+	static async List() {
 		try {
-			const count = this.InMemoryDatabase.size;
-			const tasks: Task[] = [];
-			this.InMemoryDatabase.forEach(task => tasks.push(task));
+			const raw = await TaskSchema.findAndCountAll<Model<Task>>({ raw: false });
 
 			return {
-				count,
-				tasks
+				count: raw.count,
+				tasks: raw.rows.map(r => r.toJSON<Task>())
 			}
-		} catch (error) {
-			throw error;
-		}
-	}
-	
-	static Update(entityId: number, taskDto: UpdateTaskDto['task']) {
-		try {
-			if (!this.InMemoryDatabase.has(entityId)) {
-				throw new NotFound();
-			}
-
-			const oldTask = this.InMemoryDatabase.get(entityId)!;
-			
-			const newTask = { ...oldTask, ...taskDto }
-
-			this.InMemoryDatabase.set(entityId, newTask);
-
-			return newTask;
 
 		} catch (error) {
 			throw error;
 		}
 	}
 	
-	static Delete(entityId: number) {
+	static async Update(entityId: number, taskDto: UpdateTaskDto['task']) {
 		try {
-			if (!this.InMemoryDatabase.has(entityId)) {
-				throw new NotFound();
-			}
+			const [result] = await TaskSchema.update({ ...taskDto }, { where: { id: entityId } });
 
-			this.InMemoryDatabase.delete(entityId);
-
-			return true;
+			return result;
 
 		} catch (error) {
-			return false;
+			throw error;
 		}
 	}
 	
-	static Create(taskDto: CreateTaskDto['task']) {
+	static async Delete(entityId: number) {
 		try {
-			this.InMemoryDatabase.forEach(k => {
-				if (k.name === taskDto.name) {
-					throw new Conflict();
-				}
-			})
-			const id = this.InMemoryDatabase.size + 1;
-			const task = { id, ...taskDto };
+			const task = await TaskSchema.destroy({ where: { id: entityId } });
 
-			this.InMemoryDatabase.set(id, task);
+			return task === 1;
+		} catch (error) {
+			throw error;
+		}
+	}
+	
+	static async Create(taskDto: CreateTaskDto['task']) {
+		try {
+			const task = await TaskSchema.create({ ...taskDto }, { returning: true });
 
-			return task;
+			return task.toJSON<Task>();
 		} catch (error) {
 			throw error;
 		}
