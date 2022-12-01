@@ -79,6 +79,10 @@ middlware functions can:
 * end the request/response cycle.
 * call the net middleware in the stack.
 
+express is built up on middlewares. the way they work is you can have a couple of them one after the other. and once one is finished, the request will "trickle" down to the next.
+
+this is good for aspect oriented programming. one of the concepts can be to encapsulate a piece of logic to run before the main logic, thus avoiding duplication, or even running code where all necessary conditions have not been met.
+
 ### More on the next function
 a function within the Express router, when invoked, executes the next middleware.
 
@@ -90,3 +94,25 @@ you can use all the basic http methods.
 
 you would have a leading url, then an express RequestHandler middleware.
 
+### Controllers
+
+are used to handle http request/responses & propograte errors, but no more.
+the business logic should be implemented in services.
+
+since we are using typescript - we could define the types in the Request/Response interfaces as those are optionally generic.
+
+### Services
+
+are used to handle business logic for a specific entity.
+you can have a service call a repository (will be disscussed later), fetch data from it, and handle the outcome, in case you need to handle errors.
+
+### Params Middleware
+
+can be used to validate url and query params. this is usefull for failling early and saving the backend from doing work not needed, in case the url param is missing or incorrect.
+
+### ORMs/ODMs
+
+Object-relation mappers or Object Document mappers are tools that give us abstractions over SQL (relational) and noSQL (Document based, and others) databases.
+the can give us query builders (functions to run queries for us) and other database interaction cababilities.
+
+for this to work - we need to setup a connection, we can synce to a database via it's connection. we should create models - that will represent the shape of our database, and relations.
