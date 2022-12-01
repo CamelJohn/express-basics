@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 
+type EnvKey = 'DEV_PORT' | 'DEV_ISSUER' | 'DEV_JWT_SECRET';
 interface GetArguments<T> {
-	variable: string;
+	variable: EnvKey;
 	defaultValue: T;
 	mapper?: (arg: any) => T;
 }

@@ -1,0 +1,64 @@
+@baseURL=http://localhost:3000/users
+@token=tell_me_lies_tell_me_sweet_little_lies
+@token1=eyJhbGciOiJIUzI1NiJ9.akBqLmNvbQ.17-y2n_m8A9S3FR0HED_UTAi5HBElCE-Vz4krpKmEDY
+
+
+### List all users
+GET {{baseURL}}
+Authorization: Bearer {{token}}
+
+### Get user by id
+GET {{baseURL}}/3
+Authorization: Bearer {{token}}
+
+### Create user
+POST {{baseURL}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"user": {
+		"name": "test user",
+		"description": "liar_liar_pants_on_fire"
+	}
+}
+
+### Update user
+PUT {{baseURL}}/20
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"user": {
+		"name": "test user # 2"
+	}
+}
+
+### Delete user
+DELETE {{baseURL}}/16
+Authorization: Bearer {{token}}
+
+### Register user
+POST {{baseURL}}/register
+Content-Type: application/json
+
+{
+	"user": {
+		"username": "john",
+		"password": "!Avigail1303",
+		"email": "j@j.com"
+	}
+}
+
+### Login user
+POST {{baseURL}}/login
+Content-Type: application/json
+Authorization: Bearer {{token1}}
+
+{
+	"user": {
+		"email": "j@j.com",
+		"password": "!Avigail1303",
+		"token": "{{token1}}"
+	}
+}

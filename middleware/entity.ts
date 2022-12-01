@@ -3,7 +3,7 @@ import { Unprocessable } from "../http";
 import { EntityUrlParam } from "../tasks/types";
 
 export const ParamsIdMiddleware =
-	(req: Request<EntityUrlParam>, res: Response, next: NextFunction) => {
+	(req: Request<EntityUrlParam | any>, res: Response, next: NextFunction) => {
 		if (!req.params.id) {
 			throw new Unprocessable();
 		}

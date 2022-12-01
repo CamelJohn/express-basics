@@ -3,15 +3,14 @@ import { DatabaseManager } from './database';
 import { HttpResponseStatus } from './http';
 import { AuthMiddleware, BasicMiddleware, ErrorMiddleware, HealthMiddleware } from './middleware';
 import { MainRouter } from './routes';
-import { EnvSrevice } from './services/env';
-import { TaskRouter } from './tasks/router';
+import { EnvSrevice } from './services';
 
 async function Server() {
 	try {
 		const webServer: Express = express();
 
 		const PORT: number = EnvSrevice.get({
-			variable: 'ENV_PORT',
+			variable: 'DEV_PORT',
 			defaultValue: 3000,
 			mapper: (arg: string) => parseInt(arg, 10),
 		});
@@ -22,11 +21,7 @@ async function Server() {
 
 		webServer.use('/health', HealthMiddleware);
 
-		webServer.use(AuthMiddleware);
-
-		webServer.use('/main', MainRouter);
-
-		webServer.use('/tasks', TaskRouter);
+		webServer.use('/', MainRouter);
 
 		webServer.get('/', (req: Request, res: Response, next: NextFunction) => {
 			res.status(HttpResponseStatus.OK).send({
