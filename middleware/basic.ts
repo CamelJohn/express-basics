@@ -7,6 +7,6 @@ export const BasicMiddleware: RequestHandler[] = [
 	json(),
 	urlencoded({ extended: true }),
 	cors(),
-	helmet(),
+	// helmet(),
 	morgan('dev')
 ];

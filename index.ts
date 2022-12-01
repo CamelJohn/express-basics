@@ -26,7 +26,7 @@ webServer.use('/tasks', TaskRouter);
 webServer.get('/', (req: Request, res: Response, next: NextFunction) => {
 	res.status(HttpResponseStatus.OK).send({
 		message: 'hello from our sever',
-		route: req.protocol.concat('://', req.hostname, ':3000', req.url),
+		route: req.protocol.concat('://', req.hostname, ':', PORT.toString(), req.url),
 	});
 });
 
