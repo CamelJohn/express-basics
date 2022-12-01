@@ -90,3 +90,9 @@ you can use all the basic http methods.
 
 you would have a leading url, then an express RequestHandler middleware.
 
+### Controllers
+
+are used to handle http request/responses & propograte errors, but no more.
+the business logic should be implemented in services.
+
+since we are using typescript - we could define the types in the Request/Response interfaces as those are optionally generic.
