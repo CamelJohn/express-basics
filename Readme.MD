@@ -90,3 +90,18 @@ you can use all the basic http methods.
 
 you would have a leading url, then an express RequestHandler middleware.
 
+### Controllers
+
+are used to handle http request/responses & propograte errors, but no more.
+the business logic should be implemented in services.
+
+since we are using typescript - we could define the types in the Request/Response interfaces as those are optionally generic.
+
+### Services
+
+are used to handle business logic for a specific entity.
+you can have a service call a repository (will be disscussed later), fetch data from it, and handle the outcome, in case you need to handle errors.
+
+### Params Middleware
+
+can be used to validate url and query params. this is usefull for failling early and saving the backend from doing work not needed, in case the url param is missing or incorrect.
