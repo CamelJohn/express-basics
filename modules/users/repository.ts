@@ -1,8 +1,8 @@
 import { CreateUserDto, User, UpdateUserDto, RegisterUserDto, LoginUserDto, RegisterUserWithTokenDto } from './types';
-import { Conflict, NotFound, Unauthorized } from '../http';
-import { UserSchema } from '../database'
+import { Conflict, NotFound, Unauthorized } from '../../http';
+import { UserSchema } from '../../database'
 import { Model } from 'sequelize';
-import { BcryptService } from '../services';
+import { BcryptService } from '../../services';
 
 export class UserRepository {
 	static async GetOne(id: number) {

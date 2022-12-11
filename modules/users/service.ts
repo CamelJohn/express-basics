@@ -1,7 +1,7 @@
 import { UserRepository } from "./repository";
 import { CreateUserDto, LoginUserDto, RegisterUserDto, UpdateUserDto } from "./types";
-import { NotFound, Unprocessable } from '../http';
-import { BcryptService, JWTService } from "../services";
+import { NotFound, Unprocessable } from '../../http';
+import { BcryptService, JWTService } from "../../services";
 
 export class UserService {
 	static GetOne(entityId: string) {

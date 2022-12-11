@@ -1,6 +1,6 @@
 import { CreateTaskDto, Task, UpdateTaskDto } from './types';
-import { Conflict, NotFound } from '../http';
-import { TaskSchema } from '../database'
+import { NotFound } from '../../http';
+import { TaskSchema } from '../../database'
 import { Model } from 'sequelize';
 
 export class TaskRepository {

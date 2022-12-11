@@ -18,10 +18,6 @@ export interface UpdateTaskDto {
 	};
 }
 
-export interface EntityUrlParam {
-	id: string;
-}
-
 export interface ListTaskResponse {
 	tasks: Task[];
 	count: number;

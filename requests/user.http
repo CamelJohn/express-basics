@@ -53,7 +53,7 @@ Content-Type: application/json
 ### Login user
 POST {{baseURL}}/login
 Content-Type: application/json
-Authorization: Bearer {{token1}}
+# Authorization: Bearer {{token1}}
 
 {
 	"user": {

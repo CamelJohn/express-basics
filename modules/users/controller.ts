@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpResponseStatus } from '../http/response';
+import { HttpResponseStatus } from '../../http/response';
+import { EntityUrlParam } from '../types';
 import { UserService } from './service';
-import { CreateUserDto, EntityUrlParam, UserResponse, UpdateUserDto, ListUserResponse, LoginUserDto, RegisterUserDto } from './types';
+import { CreateUserDto, UserResponse, UpdateUserDto, ListUserResponse, LoginUserDto, RegisterUserDto } from './types';
 
 export class UserController {
 	static async GetOne(req: Request<EntityUrlParam | any>, res: Response<UserResponse>, next: NextFunction) {

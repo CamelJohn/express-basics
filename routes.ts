@@ -1,9 +1,7 @@
 import express, { Router } from 'express';
-import { AuthMiddleware } from './middleware';
-import { TaskRouter } from './tasks';
-import { UserRouter } from './users';
+import { TaskRouter, UserRouter } from './modules';
 
 export const MainRouter: Router = express.Router();
 
-MainRouter.use('/tasks', AuthMiddleware, TaskRouter);
+MainRouter.use('/tasks', TaskRouter);
 MainRouter.use('/users', UserRouter);

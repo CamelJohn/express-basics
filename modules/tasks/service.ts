@@ -1,6 +1,6 @@
 import { TaskRepository } from "./repository";
 import { CreateTaskDto, UpdateTaskDto } from "./types";
-import { NotFound, Unprocessable } from '../http';
+import { NotFound, Unprocessable } from '../../http';
 
 export class TaskService {
 	static GetOne(entityId: string) {

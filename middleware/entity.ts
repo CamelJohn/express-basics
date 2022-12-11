@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Unprocessable } from "../http";
-import { EntityUrlParam } from "../tasks/types";
+import { EntityUrlParam } from "../modules";
 
 export const ParamsIdMiddleware =
 	(req: Request<EntityUrlParam | any>, res: Response, next: NextFunction) => {

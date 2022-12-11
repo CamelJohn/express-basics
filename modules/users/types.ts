@@ -32,10 +32,6 @@ export interface UpdateUserDto {
 	};
 }
 
-export interface EntityUrlParam {
-	id: string;
-}
-
 export interface ListUserResponse {
 	users: User[];
 	count: number;

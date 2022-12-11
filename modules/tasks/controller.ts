@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpResponseStatus } from '../http/response';
+import { HttpResponseStatus } from '../../http/response';
+import { EntityUrlParam } from '../types';
 import { TaskService } from './service';
-import { CreateTaskDto, EntityUrlParam, TaskResponse, UpdateTaskDto, ListTaskResponse } from './types';
+import { CreateTaskDto, TaskResponse, UpdateTaskDto, ListTaskResponse } from './types';
 
 export class TaskController {
 	static async GetOne(req: Request<EntityUrlParam>, res: Response<TaskResponse>, next: NextFunction) {
